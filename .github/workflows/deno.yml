@@ -9,20 +9,20 @@
 name: Deno
 
 on:
-  push:
-    branches: ["master"]
-  pull_request:
-    branches: ["master"]
   workflow_dispatch:
-
-permissions:
-  contents: read
+    inputs:
+      accountid:
+        description: "AWS Account ID"
+        required: true
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Print Account ID
+        run: echo "Account ID received: ${{ github.event.inputs.accountid }}"
+
       - name: Setup repo
         uses: actions/checkout@v4
 
@@ -33,6 +33,9 @@ jobs:
 
       - name: Run linter
         run: deno lint
+
+      - name: Run tests
+        run: deno test -A
 
       - name: Run tests
         run: deno test -A
