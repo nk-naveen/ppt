@@ -1,0 +1,16 @@
+name: Account Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      accountid:
+        description: "AWS Account ID"
+        required: true
+
+jobs:
+  print-account:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print Account ID
+        run: echo "Received Account ID: ${{ github.event.inputs.accountid }}"
